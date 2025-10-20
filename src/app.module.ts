@@ -1,18 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
-/**import { UsersModule } from './users/users.module';
-import { EventsModule } from './events/events.module';
-import { FinancesModule } from './finances/finances.module';
+
+// Módulos existentes
+import { AuthModule } from './auth/auth.module';
+
+// 🔹 NUEVOS módulos que agregamos
+import { AiModule } from './ai/ai.module';
+import { PlannerModule } from './planner/planner.module';
 import { WalletModule } from './wallet/wallet.module';
-import { ProfileModule } from './profile/profile.module';**/
+import { CalendarModule } from './calendar/calendar.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-       type: 'postgres',
+      type: 'postgres',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT ?? '5432', 10),
       username: process.env.DB_USER,
@@ -21,12 +24,21 @@ import { ProfileModule } from './profile/profile.module';**/
       autoLoadEntities: true,
       synchronize: true,
     }),
+
+    // Módulos propios
     AuthModule,
-    /**UsersModule,
-    EventsModule,
-    FinancesModule,
+
+    // 🔹 Añadidos (IA + Planner + Wallet + Calendar stub)
+    AiModule,
+    PlannerModule,
     WalletModule,
-    ProfileModule**/
+    CalendarModule,
+
+    // Si más adelante reactivas estos, quita los comentarios:
+    // UsersModule,
+    // EventsModule,
+    // FinancesModule,
+    // ProfileModule,
   ],
 })
 export class AppModule {}

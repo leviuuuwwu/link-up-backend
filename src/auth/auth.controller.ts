@@ -4,6 +4,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { UserDecorator } from 'src/common/decorators/user.decorators';
+import type { RequestUser } from 'src/common/types/request-user';
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +22,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  me(@UserDecorator() user) {
+  me(@UserDecorator() user: RequestUser): RequestUser {
+    // ya no es `any`, así que no hay "unsafe return"
     return user;
   }
 }
