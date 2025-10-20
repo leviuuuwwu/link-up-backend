@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { EventsModule } from './events/events.module';
+import { WalletModule } from './wallet/wallet.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
 import { UsersModule } from './users/users.module';
@@ -28,6 +29,8 @@ import { ProfileModule } from './profile/profile.module';**/
     /**EventsModule,
 =======
     EventsModule,
+    WalletModule,
+
     /**UsersModule,
     EventsModule,
 >>>>>>> e3a7e3d8460d0341385190cff54c7d006c4cfa41
