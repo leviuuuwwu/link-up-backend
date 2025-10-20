@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
-/**import { UsersModule } from './users/users.module';
-import { EventsModule } from './events/events.module';
+import { UsersModule } from './users/users.module';
+/**import { EventsModule } from './events/events.module';
 import { FinancesModule } from './finances/finances.module';
 import { WalletModule } from './wallet/wallet.module';
 import { ProfileModule } from './profile/profile.module';**/
@@ -22,8 +22,8 @@ import { ProfileModule } from './profile/profile.module';**/
       synchronize: true,
     }),
     AuthModule,
-    /**UsersModule,
-    EventsModule,
+    UsersModule
+    /**EventsModule,
     FinancesModule,
     WalletModule,
     ProfileModule**/

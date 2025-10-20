@@ -13,10 +13,23 @@ export class UsersService {
     @InjectRepository(Notification) private notificationsRepo: Repository<Notification>,
   ) {}
 
+  async findByEmail(email: string) {
+    const user = await this.usersRepo.findOne({ where: { email } });
+    return user;
+  }
+
+  async create(data: Partial<User>) {
+    const user = this.usersRepo.create(data);
+    return this.usersRepo.save(user);
+  }
+
+  async findById(id: string) {
+    return this.usersRepo.findOne({ where: { id } });
+  }
+
+  // === MÉTODOS EXISTENTES ===
   async findOne(id: string) {
-    const user = await this.usersRepo.findOne({
-      where: { id },
-    });
+    const user = await this.usersRepo.findOne({ where: { id } });
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
