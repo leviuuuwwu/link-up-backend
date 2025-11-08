@@ -5,6 +5,7 @@ import { EventsModule } from './events/events.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
 import { UsersModule } from './users/users.module';
+import { WalletModule } from './wallet/wallet.module';
 /**import { EventsModule } from './events/events.module';
 import { FinancesModule } from './finances/finances.module';
 import { WalletModule } from './wallet/wallet.module';
@@ -24,6 +25,10 @@ import { ProfileModule } from './profile/profile.module';**/
     }),
     AuthModule,
     EventsModule,
+    UsersModule,
+    WalletModule,
+    
+
     /**UsersModule,
     EventsModule,
     FinancesModule,
