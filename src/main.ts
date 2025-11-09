@@ -7,10 +7,10 @@ import * as dotenv from 'dotenv';
 dotenv.config(); // una sola vez, arriba
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   const config = new DocumentBuilder()
     .setTitle('LinkUp API')
@@ -24,7 +24,7 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || 3000);
   console.log(
-    `🚀 Servidor corriendo en http://localhost:${process.env.PORT || 3000}`,
+    `Servidor corriendo en http://localhost:${process.env.PORT || 3000}`,
   );
 }
 

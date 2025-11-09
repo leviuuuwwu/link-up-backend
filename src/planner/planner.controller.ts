@@ -25,7 +25,7 @@ export class PlannerController {
     @Query('includeExternal') includeExternal?: string,
     @UserDecorator() user?: any,
   ) {
-    await this.planner.ensureSameUserOrAdmin(userId, user);
+    this.planner.ensureSameUserOrAdmin(userId, user);
     return this.planner.getCalendar(userId, {
       from,
       to,
@@ -39,7 +39,7 @@ export class PlannerController {
     @Body() dto: PlannerRequestDto,
     @UserDecorator() user?: any,
   ) {
-    await this.planner.ensureSameUserOrAdmin(userId, user);
+    this.planner.ensureSameUserOrAdmin(userId, user);
     return this.planner.createOrUpdatePlan(userId, dto);
   }
 }

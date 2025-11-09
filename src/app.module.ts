@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { SmartPlannerModule } from './smart-planner';
 dotenv.config();
 
 // Módulos existentes
@@ -33,6 +36,7 @@ import { CalendarModule } from './calendar/calendar.module';
     PlannerModule,
     WalletModule,
     CalendarModule,
+    SmartPlannerModule,
 
     // Si más adelante reactivas estos, quita los comentarios:
     // UsersModule,
@@ -40,5 +44,7 @@ import { CalendarModule } from './calendar/calendar.module';
     // FinancesModule,
     // ProfileModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
