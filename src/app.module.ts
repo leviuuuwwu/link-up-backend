@@ -1,19 +1,26 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SmartPlannerModule } from './smart-planner';
-dotenv.config();
 
-// Módulos existentes
+// Módulos existentes desde main
 import { AuthModule } from './auth/auth.module';
+import { EventsModule } from './events/events.module';   // si existe en el repo
 
-// 🔹 NUEVOS módulos que agregamos
+// Módulos nuevos que agregaste / ya estaban
 import { AiModule } from './ai/ai.module';
 import { PlannerModule } from './planner/planner.module';
+import { SmartPlannerModule } from './smart-planner';
+
+// Otros módulos que trae main (inclúyelos si existen en el repo)
+import { UsersModule } from './users/users.module';
 import { WalletModule } from './wallet/wallet.module';
-import { CalendarModule } from './calendar/calendar.module';
+// import { FinancesModule } from './finances/finances.module'; // solo si existe
+
+dotenv.config();
 
 @Module({
   imports: [
@@ -28,21 +35,15 @@ import { CalendarModule } from './calendar/calendar.module';
       synchronize: true,
     }),
 
-    // Módulos propios
+    // 🔹 Módulos de negocio
     AuthModule,
-
-    // 🔹 Añadidos (IA + Planner + Wallet + Calendar stub)
+    EventsModule,           // quítalo si no existe
     AiModule,
     PlannerModule,
-    WalletModule,
-    CalendarModule,
     SmartPlannerModule,
-
-    // Si más adelante reactivas estos, quita los comentarios:
-    // UsersModule,
-    // EventsModule,
-    // FinancesModule,
-    // ProfileModule,
+    UsersModule,            // quítalo si no existe
+    WalletModule,           // quítalo si no existe
+    // FinancesModule,      // quítalo si no existe
   ],
   controllers: [AppController],
   providers: [AppService],
