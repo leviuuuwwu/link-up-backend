@@ -8,6 +8,7 @@ import { Notification } from './entities/notification.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([User, Notification])],
   providers: [UsersService],
+  exports: [UsersService], // ✅ necesario para que AuthModule lo reciba
   controllers: [UsersController],
   exports: [UsersService],
 })

@@ -1,20 +1,31 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
-import { EventsModule } from './events/events.module';
 import * as dotenv from 'dotenv';
-dotenv.config();
+
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
+// Módulos existentes desde main
+import { AuthModule } from './auth/auth.module';
+import { EventsModule } from './events/events.module';   // si existe en el repo
+
+// Módulos nuevos que agregaste / ya estaban
+import { AiModule } from './ai/ai.module';
+import { PlannerModule } from './planner/planner.module';
+import { SmartPlannerModule } from './smart-planner';
+
+// Otros módulos que trae main (inclúyelos si existen en el repo)
 import { UsersModule } from './users/users.module';
 import { WalletModule } from './wallet/wallet.module';
-/**import { EventsModule } from './events/events.module';
-import { FinancesModule } from './finances/finances.module';
-import { WalletModule } from './wallet/wallet.module';
-import { ProfileModule } from './profile/profile.module';**/
+// import { FinancesModule } from './finances/finances.module'; // solo si existe
+
+dotenv.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-       type: 'postgres',
+      type: 'postgres',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT ?? '5432', 10),
       username: process.env.DB_USER,
@@ -23,17 +34,18 @@ import { ProfileModule } from './profile/profile.module';**/
       autoLoadEntities: true,
       synchronize: true,
     }),
-    AuthModule,
-    EventsModule,
-    UsersModule,
-    WalletModule,
-    
 
-    /**UsersModule,
-    EventsModule,
-    FinancesModule,
-    WalletModule,
-    ProfileModule**/
+    // 🔹 Módulos de negocio
+    AuthModule,
+    EventsModule,           // quítalo si no existe
+    AiModule,
+    PlannerModule,
+    SmartPlannerModule,
+    UsersModule,            // quítalo si no existe
+    WalletModule,           // quítalo si no existe
+    // FinancesModule,      // quítalo si no existe
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -3,15 +3,14 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
-dotenv.config();
 
+dotenv.config(); // una sola vez, arriba
 
 async function bootstrap() {
-  dotenv.config();
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   const config = new DocumentBuilder()
     .setTitle('LinkUp API')
@@ -24,6 +23,15 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   await app.listen(process.env.PORT || 3000);
-  console.log(`🚀 Servidor corriendo en http://localhost:${process.env.PORT || 3000}`);
+  console.log(
+    `Servidor corriendo en http://localhost:${process.env.PORT || 3000}`,
+  );
 }
-bootstrap();
+
+// Elige una:
+void bootstrap();
+// o:
+// bootstrap().catch((err) => {
+//   console.error('❌ Error al iniciar la app:', err);
+//   process.exit(1);
+// });
