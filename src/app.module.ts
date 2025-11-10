@@ -21,6 +21,12 @@ import { WalletModule } from './wallet/wallet.module';
 // import { FinancesModule } from './finances/finances.module'; // solo si existe
 
 dotenv.config();
+/**import { EventsModule } from './events/events.module';
+import { FinancesModule } from './finances/finances.module';
+import { WalletModule } from './wallet/wallet.module';
+import { ProfileModule } from './profile/profile.module';**/
+import { FinancesModule } from './finances/finances.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -34,6 +40,13 @@ dotenv.config();
       autoLoadEntities: true,
       synchronize: true,
     }),
+    AuthModule,
+    EventsModule,
+    UsersModule,
+    WalletModule,
+    FinancesModule,
+    PaymentsModule,
+    
 
     // 🔹 Módulos de negocio
     AuthModule,
