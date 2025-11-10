@@ -2,18 +2,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
+  OneToOne,
+  JoinColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
-@Entity('wallets')
-export class Wallet {
-  @PrimaryGeneratedColumn('uuid') id: string;
-  @Column('uuid') userId: string;
-  @Column({ type: 'varchar', default: 'USD' }) currency: string;
-  @Column({ type: 'numeric', precision: 12, scale: 2, default: 0 })
-  balance: string;
-  @UpdateDateColumn() updatedAt: Date;
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Transaction } from './transaction.entity';
 import { User } from '../../users/entities/user.entity';
 
@@ -29,6 +22,9 @@ export class Wallet {
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   balance: number;
 
-  @OneToMany(() => Transaction, (t) => t.wallet, { cascade: true })
+  @OneToMany(() => Transaction, (t: any) => (t as any).wallet, { cascade: true })
   transactions: Transaction[];
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

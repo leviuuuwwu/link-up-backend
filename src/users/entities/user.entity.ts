@@ -1,33 +1,34 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  OneToMany, // Combined imports
 } from 'typeorm';
 import { UserEvent } from 'src/events/entities/user-event.entity';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ unique: true })
-  email: string;
+  @Column({ unique: true })
+  email: string;
 
-  @Column()
-  password: string;
+  @Column()
+  password: string;
 
-  @Column()
-  fullName: string;
+  @Column()
+  fullName: string;
 
-  @Column({ default: 'user' })
-  role: string;
+  @Column({ default: 'user' })
+  role: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
-}
+  @CreateDateColumn()
+  createdAt: Date;
 
-  @OneToMany(() => UserEvent, (ue) => ue.user)
-  events: UserEvent[];
-}
+  // ✅ MOVED INSIDE THE CLASS
+  @OneToMany(() => UserEvent, (ue) => ue.user)
+  events: UserEvent[];
+  
+} 

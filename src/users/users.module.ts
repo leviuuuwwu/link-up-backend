@@ -10,6 +10,5 @@ import { Notification } from './entities/notification.entity';
   providers: [UsersService],
   exports: [UsersService], // ✅ necesario para que AuthModule lo reciba
   controllers: [UsersController],
-  exports: [UsersService],
 })
 export class UsersModule {}
