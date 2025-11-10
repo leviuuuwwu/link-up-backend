@@ -1,35 +1,30 @@
 // src/app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as dotenv from 'dotenv';
+import { ConfigModule } from '@nestjs/config'; // 👈 1. Importa ConfigModule
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-// Módulos existentes desde main
+// Módulos de tu aplicación
 import { AuthModule } from './auth/auth.module';
-import { EventsModule } from './events/events.module';   // si existe en el repo
-
-// Módulos nuevos que agregaste / ya estaban
-import { AiModule } from './ai/ai.module';
-import { PlannerModule } from './planner/planner.module';
-import { SmartPlannerModule } from './smart-planner';
-
-// Otros módulos que trae main (inclúyelos si existen en el repo)
 import { UsersModule } from './users/users.module';
+import { EventsModule } from './events/events.module';
 import { WalletModule } from './wallet/wallet.module';
-// import { FinancesModule } from './finances/finances.module'; // solo si existe
-
-dotenv.config();
-/**import { EventsModule } from './events/events.module';
-import { FinancesModule } from './finances/finances.module';
-import { WalletModule } from './wallet/wallet.module';
-import { ProfileModule } from './profile/profile.module';**/
 import { FinancesModule } from './finances/finances.module';
 import { PaymentsModule } from './payments/payments.module';
+import { AiModule } from './ai/ai.module';
+import { PlannerModule } from './planner/planner.module';
+import { SmartPlannerModule } from './smart-planner'; // O donde sea que esté
 
 @Module({
   imports: [
+    // 2. ConfigModule debe ir primero y ser global
+    ConfigModule.forRoot({
+      isGlobal: true, 
+    }),
+    
+    // 3. TypeOrmModule (usa process.env, ahora cargado por ConfigModule)
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -40,25 +35,20 @@ import { PaymentsModule } from './payments/payments.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    
+    // 4. Módulos de la aplicación (solo se listan una vez)
     AuthModule,
-    EventsModule,
     UsersModule,
+    EventsModule,
     WalletModule,
     FinancesModule,
     PaymentsModule,
-    
-
-    // 🔹 Módulos de negocio
-    AuthModule,
-    EventsModule,           // quítalo si no existe
     AiModule,
     PlannerModule,
     SmartPlannerModule,
-    UsersModule,            // quítalo si no existe
-    WalletModule,           // quítalo si no existe
-    // FinancesModule,      // quítalo si no existe
   ],
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule {}
