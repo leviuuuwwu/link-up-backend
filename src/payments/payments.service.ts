@@ -11,15 +11,21 @@ export class PaymentsService {
     private paymentRepo: Repository<Payment>,
   ) {}
 
-  async processPayment(dto: CreatePaymentDto) {
-    await new Promise((r) => setTimeout(r, 500));
+async processPayment(dto: CreatePaymentDto) {
+  await new Promise((r) => setTimeout(r, 500));
 
-    const payment = this.paymentRepo.create({
-      ...dto,
-      status: 'Success',
-    });
+  const payment = this.paymentRepo.create({
+    ...dto,
+    status: 'success',
+  });
+    
+  const saved = await this.paymentRepo.save(payment);
 
-    return this.paymentRepo.save(payment);
+  return {
+    success: true,
+    message: 'Payment processed successfully',
+    payment: saved,
+  };
   }
 
   findAll() {

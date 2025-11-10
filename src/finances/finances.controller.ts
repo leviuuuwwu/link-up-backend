@@ -9,37 +9,43 @@ export class FinancesController {
   constructor(private readonly financesService: FinancesService) {}
 
   @Get('requests')
-  getRequests() {
-    return this.financesService.findAllRequests();
+  async getRequests() {
+    const data = await this.financesService.findAllRequests();
+    return { success: true, data };
   }
 
   @Post('requests')
-  addRequest(@Body() dto: CreatePaymentRequestDto) {
-    return this.financesService.addRequest(dto.title, dto.from, dto.amount);
+  async addRequest(@Body() dto: CreatePaymentRequestDto) {
+    const data = await this.financesService.addRequest(dto.title, dto.from, dto.amount);
+    return { success: true, message: 'Request created successfully', data };
   }
 
   @Patch('requests/:id/pay')
-  markAsPaid(@Param('id') id: string) {
-    return this.financesService.markAsPaid(Number(id));
+  async markAsPaid(@Param('id') id: string) {
+    const data = await this.financesService.markAsPaid(Number(id));
+    return { success: true, message: 'Payment marked as paid', data };
   }
 
   @Get('accounts')
-  getAccounts() {
-    return this.financesService.findAllAccounts();
+  async getAccounts() {
+    const data = await this.financesService.findAllAccounts();
+    return { success: true, data };
   }
 
   @Post('accounts')
-  addAccount(@Body() dto: CreateSharedAccountDto) {
-    return this.financesService.addSharedAccount(
+  async addAccount(@Body() dto: CreateSharedAccountDto) {
+    const data = await this.financesService.addSharedAccount(
       dto.name,
       dto.members,
       dto.expected,
       dto.contributed ?? 0,
     );
+    return { success: true, message: 'Shared account created successfully', data };
   }
 
   @Patch('accounts/:id/contribute')
-  addContribution(@Param('id') id: string, @Body() dto: AddContributionDto) {
-    return this.financesService.addContribution(Number(id), dto.amount);
+  async addContribution(@Param('id') id: string, @Body() dto: AddContributionDto) {
+    const data = await this.financesService.addContribution(Number(id), dto.amount);
+    return { success: true, message: 'Contribution added', data };
   }
 }

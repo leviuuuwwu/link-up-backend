@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FinancesService } from './finances.service';
 import { FinancesController } from './finances.controller';
 import { PaymentRequest } from './entities/payment-request.entity';
-import { SharedAccount } from './entities/share-account-entity';
+import { SharedAccount } from './entities/shared-account.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([PaymentRequest, SharedAccount])],

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PaymentRequest } from './entities/payment-request.entity';
-import { SharedAccount } from './entities/share-account-entity';
+import { SharedAccount } from './entities/shared-account.entity';
 
 @Injectable()
 export class FinancesService {
