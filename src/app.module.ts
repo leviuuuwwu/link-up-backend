@@ -10,6 +10,8 @@ import { WalletModule } from './wallet/wallet.module';
 import { FinancesModule } from './finances/finances.module';
 import { WalletModule } from './wallet/wallet.module';
 import { ProfileModule } from './profile/profile.module';**/
+import { FinancesModule } from './finances/finances.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { ProfileModule } from './profile/profile.module';**/
     EventsModule,
     UsersModule,
     WalletModule,
+    FinancesModule,
+    PaymentsModule,
     
 
     /**UsersModule,
